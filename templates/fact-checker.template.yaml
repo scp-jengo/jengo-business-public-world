@@ -1,0 +1,211 @@
+# Fact-Checker Template
+# Copy this file and fill in the details to add a new fact-checking organization
+#
+# Fields marked with * are required
+# Remove optional sections if not applicable
+
+# * Unique identifier - leave empty, will be generated
+id: ""
+
+# * Official name of the fact-checking organization
+name: "Example Fact Check"
+
+# Alternative names, abbreviations
+alternative_names:
+  - "EFC"
+  - "Example Fact-Checking Initiative"
+
+# * Primary website URL
+url: "https://example.com/factcheck"
+
+# Social media accounts (optional)
+social_media:
+  twitter: "@examplefactcheck"
+  facebook: "examplefactcheck"
+
+# * Methodology - how do they fact-check?
+methodology:
+  # What approach do they use?
+  approach: "Multi-source verification with expert consultation"
+
+  # Transparency level
+  # Options: high | medium | low | none
+  transparency: "high"
+
+  # Do they publish corrections?
+  public_corrections: true
+
+  # URL to methodology documentation
+  methodology_url: "https://example.com/methodology"
+
+  # Key methodology steps
+  steps:
+    - "Identify viral or significant claims"
+    - "Consult primary sources and official records"
+    - "Interview relevant experts"
+    - "Cross-reference multiple credible sources"
+    - "Publish findings with full source citations"
+
+# * Rating scale used
+rating_scale:
+  type: "custom"  # Options: true-false | 5-point | custom | numeric
+
+  # Define the rating labels
+  labels:
+    - label: "True"
+      description: "The claim is accurate and nothing significant is missing"
+    - label: "Mostly True"
+      description: "The claim is accurate but needs clarification or additional information"
+    - label: "Half True"
+      description: "The claim is partially accurate but leaves out important details or takes things out of context"
+    - label: "Mostly False"
+      description: "The claim contains an element of truth but ignores critical facts"
+    - label: "False"
+      description: "The claim is not accurate"
+    - label: "Pants on Fire"
+      description: "The claim is not accurate and makes a ridiculous claim"
+
+# * Independence assessment
+independence:
+  # Independence score (0.0 = not independent, 1.0 = fully independent)
+  score: 0.85
+
+  # Primary funding sources
+  funding_sources:
+    - type: "donations"
+      source: "Public donations"
+      percentage: 40
+    - type: "grants"
+      source: "Non-partisan foundation grants"
+      percentage: 60
+
+  # Known conflicts of interest
+  conflicts_of_interest: []
+
+  # Is funding transparent?
+  funding_transparency: "high"  # Options: high | medium | low | none
+
+  # URL to funding disclosures
+  funding_disclosure_url: "https://example.com/funding"
+
+# Certifications (optional but important)
+certifications:
+  - organization: "IFCN"  # International Fact-Checking Network
+    type: "signatory"
+    status: "active"
+    date_obtained: "2020-01-01"
+    verification_url: "https://ifcncodeofprinciples.poynter.org/signatories"
+
+# * Parent organization if applicable
+parent_organization:
+  name: "Example Media Organization"
+  organization_id: ""  # If parent org is in the world model
+  relationship: "Division of larger news organization"
+
+# When was the organization founded?
+founded: "2015-01-01"
+
+# Headquarters location
+headquarters:
+  city: "Washington"
+  state: "DC"
+  country: "US"  # ISO 3166-1 alpha-2 code
+
+# * Credibility assessment
+credibility:
+  # Overall credibility score (0.0-1.0)
+  score: 0.82
+
+  # How was this calculated?
+  methodology: "Based on IFCN certification, track record accuracy, methodology transparency, and corrections policy"
+
+  # When was credibility last assessed?
+  last_updated: "2026-05-19T00:00:00Z"
+
+# Track record (optional but recommended)
+track_record:
+  # Total fact-checks published
+  total_checks: 1500
+
+  # How many corrections have been issued?
+  corrections_issued: 12
+
+  # Correction rate
+  correction_rate: 0.008  # 0.8%
+
+  # Notable fact-checks
+  notable_checks:
+    - date: "2024-11-05"
+      claim: "Election fraud claim"
+      verdict: "False"
+      impact: "high"
+      url: "https://example.com/factcheck/election-fraud"
+
+# Coverage areas
+coverage:
+  # Options: local | regional | national | international
+  scope: "national"
+
+  # Topics typically covered
+  topics:
+    - "politics"
+    - "elections"
+    - "public-health"
+    - "climate"
+    - "misinformation"
+
+  # Languages
+  languages:
+    - "en"  # English
+
+# Political bias (if any detected)
+bias:
+  # Options: far-left | left | center-left | center | center-right | right | far-right | unknown
+  political: "center"
+
+  # Confidence in bias assessment (0.0-1.0)
+  confidence: 0.75
+
+  # Notes on bias
+  notes: "Generally balanced in selection of claims from across political spectrum"
+
+# Staff information (optional)
+staff:
+  # Options: small | medium | large | unknown
+  size: "medium"
+
+  # Notable fact-checkers
+  notable_staff:
+    - "Senior Fact-Checker Name"
+
+# Awards received (optional)
+awards:
+  - name: "Excellence in Fact-Checking Award"
+    year: 2024
+    organization: "Journalism Association"
+    description: "For outstanding accuracy and transparency"
+
+# Controversies (optional but important if they exist)
+controversies:
+  - date: "2023-06-15"
+    description: "Criticized for slow response to viral claim"
+    resolution: "Improved turnaround time procedures"
+    impact: "minor"  # Options: none | minor | moderate | major | severe
+
+# Current operational status
+# Options: active | defunct | suspended
+status: "active"
+
+# Additional notes (optional)
+notes: |
+  Known for: Rigorous methodology, transparent sourcing, prompt corrections
+
+  Specialties: Political claims, election misinformation, public health claims
+
+  Notable characteristics: IFCN signatory, publishes full methodology for each fact-check
+
+# Metadata (filled automatically by system)
+metadata:
+  created: ""  # Auto-filled
+  updated: ""  # Auto-filled
+  curator: ""  # Your name/ID

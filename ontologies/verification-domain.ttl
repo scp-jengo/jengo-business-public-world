@@ -1,0 +1,454 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix scp: <https://scp-jengo.org/ontology/verification#> .
+
+# Ontology metadata
+<https://scp-jengo.org/ontology/verification> a owl:Ontology ;
+    dc:title "SCP Jengo Verification Domain Ontology" ;
+    dc:description "Ontology for representing news sources, fact-checkers, claims, people, organizations, and their relationships in the information verification domain" ;
+    dc:creator "Jengo System" ;
+    dcterms:created "2026-05-19"^^xsd:date ;
+    owl:versionInfo "1.0.0" .
+
+# ============================================================================
+# CORE ENTITY CLASSES
+# ============================================================================
+
+scp:Entity a owl:Class ;
+    rdfs:label "Entity" ;
+    rdfs:comment "Base class for all entities in the world model" .
+
+scp:InformationSource a owl:Class ;
+    rdfs:subClassOf scp:Entity ;
+    rdfs:label "Information Source" ;
+    rdfs:comment "Any entity that produces or disseminates information" .
+
+scp:NewsSource a owl:Class ;
+    rdfs:subClassOf scp:InformationSource ;
+    rdfs:label "News Source" ;
+    rdfs:comment "Media organization that publishes news content" .
+
+scp:FactChecker a owl:Class ;
+    rdfs:subClassOf scp:InformationSource ;
+    rdfs:label "Fact-Checker" ;
+    rdfs:comment "Organization that verifies claims and publishes fact-checks" .
+
+scp:Person a owl:Class ;
+    rdfs:subClassOf scp:Entity, foaf:Person ;
+    rdfs:label "Person" ;
+    rdfs:comment "Individual person - journalist, expert, public figure, etc." .
+
+scp:Organization a owl:Class ;
+    rdfs:subClassOf scp:Entity, foaf:Organization ;
+    rdfs:label "Organization" ;
+    rdfs:comment "Any organization - company, non-profit, government agency, etc." .
+
+scp:Claim a owl:Class ;
+    rdfs:label "Claim" ;
+    rdfs:comment "A verifiable statement or assertion" .
+
+scp:Document a owl:Class ;
+    rdfs:label "Document" ;
+    rdfs:comment "A piece of content - article, report, statement, etc." .
+
+# ============================================================================
+# SOURCE TYPE CLASSES
+# ============================================================================
+
+scp:Newspaper a owl:Class ;
+    rdfs:subClassOf scp:NewsSource ;
+    rdfs:label "Newspaper" .
+
+scp:Television a owl:Class ;
+    rdfs:subClassOf scp:NewsSource ;
+    rdfs:label "Television" .
+
+scp:Radio a owl:Class ;
+    rdfs:subClassOf scp:NewsSource ;
+    rdfs:label "Radio" .
+
+scp:OnlineSource a owl:Class ;
+    rdfs:subClassOf scp:NewsSource ;
+    rdfs:label "Online Source" .
+
+scp:Magazine a owl:Class ;
+    rdfs:subClassOf scp:NewsSource ;
+    rdfs:label "Magazine" .
+
+scp:WireService a owl:Class ;
+    rdfs:subClassOf scp:NewsSource ;
+    rdfs:label "Wire Service" .
+
+scp:Newsletter a owl:Class ;
+    rdfs:subClassOf scp:NewsSource ;
+    rdfs:label "Newsletter" .
+
+scp:Podcast a owl:Class ;
+    rdfs:subClassOf scp:NewsSource ;
+    rdfs:label "Podcast" .
+
+# ============================================================================
+# PERSON ROLE CLASSES
+# ============================================================================
+
+scp:Journalist a owl:Class ;
+    rdfs:subClassOf scp:Person ;
+    rdfs:label "Journalist" .
+
+scp:Editor a owl:Class ;
+    rdfs:subClassOf scp:Person ;
+    rdfs:label "Editor" .
+
+scp:Expert a owl:Class ;
+    rdfs:subClassOf scp:Person ;
+    rdfs:label "Expert" .
+
+scp:Researcher a owl:Class ;
+    rdfs:subClassOf scp:Person ;
+    rdfs:label "Researcher" .
+
+scp:PublicFigure a owl:Class ;
+    rdfs:subClassOf scp:Person ;
+    rdfs:label "Public Figure" .
+
+scp:Politician a owl:Class ;
+    rdfs:subClassOf scp:PublicFigure ;
+    rdfs:label "Politician" .
+
+# ============================================================================
+# ORGANIZATION TYPE CLASSES
+# ============================================================================
+
+scp:Corporation a owl:Class ;
+    rdfs:subClassOf scp:Organization ;
+    rdfs:label "Corporation" .
+
+scp:NonProfit a owl:Class ;
+    rdfs:subClassOf scp:Organization ;
+    rdfs:label "Non-Profit" .
+
+scp:Government a owl:Class ;
+    rdfs:subClassOf scp:Organization ;
+    rdfs:label "Government" .
+
+scp:Academic a owl:Class ;
+    rdfs:subClassOf scp:Organization ;
+    rdfs:label "Academic Institution" .
+
+scp:ThinkTank a owl:Class ;
+    rdfs:subClassOf scp:Organization ;
+    rdfs:label "Think Tank" .
+
+# ============================================================================
+# QUALITY ASSESSMENT CLASSES
+# ============================================================================
+
+scp:CredibilityScore a owl:Class ;
+    rdfs:label "Credibility Score" ;
+    rdfs:comment "Quantitative assessment of source credibility (0.0-1.0)" .
+
+scp:BiasAssessment a owl:Class ;
+    rdfs:label "Bias Assessment" ;
+    rdfs:comment "Assessment of political or ideological bias" .
+
+scp:VerificationStatus a owl:Class ;
+    rdfs:label "Verification Status" ;
+    rdfs:comment "Status of claim verification" .
+
+# ============================================================================
+# RELATIONSHIP PROPERTIES
+# ============================================================================
+
+# Citation relationships
+scp:cites a owl:ObjectProperty ;
+    rdfs:label "cites" ;
+    rdfs:comment "One entity cites another" ;
+    rdfs:domain scp:Entity ;
+    rdfs:range scp:Entity .
+
+scp:quotes a owl:ObjectProperty ;
+    rdfs:subPropertyOf scp:cites ;
+    rdfs:label "quotes" ;
+    rdfs:comment "Directly quotes from source" .
+
+scp:references a owl:ObjectProperty ;
+    rdfs:subPropertyOf scp:cites ;
+    rdfs:label "references" ;
+    rdfs:comment "References or mentions another entity" .
+
+# Support/contradiction relationships
+scp:supports a owl:ObjectProperty ;
+    rdfs:label "supports" ;
+    rdfs:comment "One entity supports another's position or claim" ;
+    rdfs:domain scp:Entity ;
+    rdfs:range [owl:unionOf (scp:Entity scp:Claim)] .
+
+scp:contradicts a owl:ObjectProperty ;
+    rdfs:label "contradicts" ;
+    rdfs:comment "One entity contradicts another's position or claim" ;
+    rdfs:domain scp:Entity ;
+    rdfs:range [owl:unionOf (scp:Entity scp:Claim)] .
+
+scp:corroborates a owl:ObjectProperty ;
+    rdfs:subPropertyOf scp:supports ;
+    rdfs:label "corroborates" ;
+    rdfs:comment "Provides independent corroboration" .
+
+scp:refutes a owl:ObjectProperty ;
+    rdfs:subPropertyOf scp:contradicts ;
+    rdfs:label "refutes" ;
+    rdfs:comment "Provides evidence against" .
+
+scp:questions a owl:ObjectProperty ;
+    rdfs:label "questions" ;
+    rdfs:comment "Raises questions about validity" ;
+    rdfs:domain scp:Entity ;
+    rdfs:range [owl:unionOf (scp:Entity scp:Claim)] .
+
+# Affiliation relationships
+scp:affiliatedWith a owl:ObjectProperty ;
+    rdfs:label "affiliated with" ;
+    rdfs:comment "General affiliation relationship" ;
+    rdfs:domain scp:Entity ;
+    rdfs:range scp:Entity .
+
+scp:employedBy a owl:ObjectProperty ;
+    rdfs:subPropertyOf scp:affiliatedWith ;
+    rdfs:label "employed by" ;
+    rdfs:domain scp:Person ;
+    rdfs:range scp:Organization .
+
+scp:memberOf a owl:ObjectProperty ;
+    rdfs:subPropertyOf scp:affiliatedWith ;
+    rdfs:label "member of" ;
+    rdfs:domain scp:Entity ;
+    rdfs:range scp:Organization .
+
+scp:partnerWith a owl:ObjectProperty ;
+    rdfs:subPropertyOf scp:affiliatedWith ;
+    rdfs:label "partner with" ;
+    owl:propertyType owl:SymmetricProperty .
+
+# Ownership relationships
+scp:owns a owl:ObjectProperty ;
+    rdfs:label "owns" ;
+    rdfs:comment "Ownership relationship" ;
+    rdfs:domain scp:Entity ;
+    rdfs:range scp:Organization .
+
+scp:parentCompany a owl:ObjectProperty ;
+    rdfs:label "parent company" ;
+    rdfs:comment "Parent company relationship" ;
+    rdfs:domain scp:Organization ;
+    rdfs:range scp:Organization .
+
+scp:subsidiary a owl:ObjectProperty ;
+    rdfs:label "subsidiary" ;
+    rdfs:comment "Subsidiary relationship" ;
+    owl:inverseOf scp:parentCompany .
+
+# Claim relationships
+scp:makesClmim a owl:ObjectProperty ;
+    rdfs:label "makes claim" ;
+    rdfs:comment "Entity makes a claim" ;
+    rdfs:domain scp:Entity ;
+    rdfs:range scp:Claim .
+
+scp:verifies a owl:ObjectProperty ;
+    rdfs:label "verifies" ;
+    rdfs:comment "Fact-checker verifies a claim" ;
+    rdfs:domain scp:FactChecker ;
+    rdfs:range scp:Claim .
+
+# ============================================================================
+# DATATYPE PROPERTIES
+# ============================================================================
+
+# Identity properties
+scp:hasId a owl:DatatypeProperty ;
+    rdfs:label "has ID" ;
+    rdfs:comment "Unique identifier (UUID)" ;
+    rdfs:domain scp:Entity ;
+    rdfs:range xsd:string .
+
+scp:hasName a owl:DatatypeProperty ;
+    rdfs:label "has name" ;
+    rdfs:domain scp:Entity ;
+    rdfs:range xsd:string .
+
+scp:hasUrl a owl:DatatypeProperty ;
+    rdfs:label "has URL" ;
+    rdfs:domain scp:Entity ;
+    rdfs:range xsd:anyURI .
+
+# Credibility properties
+scp:hasCredibilityScore a owl:DatatypeProperty ;
+    rdfs:label "has credibility score" ;
+    rdfs:comment "Credibility score (0.0-1.0)" ;
+    rdfs:domain scp:Entity ;
+    rdfs:range xsd:decimal .
+
+scp:hasFactualReporting a owl:DatatypeProperty ;
+    rdfs:label "has factual reporting" ;
+    rdfs:comment "Factual reporting level" ;
+    rdfs:domain scp:NewsSource ;
+    rdfs:range xsd:string .
+
+# Bias properties
+scp:hasPoliticalBias a owl:DatatypeProperty ;
+    rdfs:label "has political bias" ;
+    rdfs:comment "Political bias classification" ;
+    rdfs:domain scp:Entity ;
+    rdfs:range xsd:string .
+
+scp:hasBiasConfidence a owl:DatatypeProperty ;
+    rdfs:label "has bias confidence" ;
+    rdfs:comment "Confidence in bias assessment (0.0-1.0)" ;
+    rdfs:domain scp:Entity ;
+    rdfs:range xsd:decimal .
+
+# Claim properties
+scp:hasClaimText a owl:DatatypeProperty ;
+    rdfs:label "has claim text" ;
+    rdfs:comment "The text of the claim" ;
+    rdfs:domain scp:Claim ;
+    rdfs:range xsd:string .
+
+scp:hasVerdict a owl:DatatypeProperty ;
+    rdfs:label "has verdict" ;
+    rdfs:comment "Fact-check verdict" ;
+    rdfs:domain scp:Claim ;
+    rdfs:range xsd:string .
+
+scp:hasVerificationConfidence a owl:DatatypeProperty ;
+    rdfs:label "has verification confidence" ;
+    rdfs:comment "Confidence in verification (0.0-1.0)" ;
+    rdfs:domain scp:Claim ;
+    rdfs:range xsd:decimal .
+
+# Temporal properties
+scp:founded a owl:DatatypeProperty ;
+    rdfs:label "founded" ;
+    rdfs:comment "Date entity was founded" ;
+    rdfs:domain scp:Entity ;
+    rdfs:range xsd:date .
+
+scp:timestamp a owl:DatatypeProperty ;
+    rdfs:label "timestamp" ;
+    rdfs:comment "Timestamp of event or relationship" ;
+    rdfs:range xsd:dateTime .
+
+scp:created a owl:DatatypeProperty ;
+    rdfs:label "created" ;
+    rdfs:comment "Creation timestamp" ;
+    rdfs:range xsd:dateTime .
+
+scp:updated a owl:DatatypeProperty ;
+    rdfs:label "updated" ;
+    rdfs:comment "Last update timestamp" ;
+    rdfs:range xsd:dateTime .
+
+# Location properties
+scp:hasHeadquartersCity a owl:DatatypeProperty ;
+    rdfs:label "has headquarters city" ;
+    rdfs:domain scp:Organization ;
+    rdfs:range xsd:string .
+
+scp:hasHeadquartersCountry a owl:DatatypeProperty ;
+    rdfs:label "has headquarters country" ;
+    rdfs:comment "ISO 3166-1 alpha-2 country code" ;
+    rdfs:domain scp:Organization ;
+    rdfs:range xsd:string .
+
+# ============================================================================
+# NAMED INDIVIDUALS (EXAMPLES)
+# ============================================================================
+
+# Verification status values
+scp:Verified a scp:VerificationStatus ;
+    rdfs:label "Verified" .
+
+scp:Unverified a scp:VerificationStatus ;
+    rdfs:label "Unverified" .
+
+scp:InProgress a scp:VerificationStatus ;
+    rdfs:label "In Progress" .
+
+scp:Disputed a scp:VerificationStatus ;
+    rdfs:label "Disputed" .
+
+# Claim verdicts
+scp:True a owl:NamedIndividual ;
+    rdfs:label "True" .
+
+scp:MostlyTrue a owl:NamedIndividual ;
+    rdfs:label "Mostly True" .
+
+scp:HalfTrue a owl:NamedIndividual ;
+    rdfs:label "Half True" .
+
+scp:MostlyFalse a owl:NamedIndividual ;
+    rdfs:label "Mostly False" .
+
+scp:False a owl:NamedIndividual ;
+    rdfs:label "False" .
+
+scp:Misleading a owl:NamedIndividual ;
+    rdfs:label "Misleading" .
+
+scp:OutOfContext a owl:NamedIndividual ;
+    rdfs:label "Out of Context" .
+
+# Political bias values
+scp:FarLeft a owl:NamedIndividual ;
+    rdfs:label "Far-Left" .
+
+scp:Left a owl:NamedIndividual ;
+    rdfs:label "Left" .
+
+scp:CenterLeft a owl:NamedIndividual ;
+    rdfs:label "Center-Left" .
+
+scp:Center a owl:NamedIndividual ;
+    rdfs:label "Center" .
+
+scp:CenterRight a owl:NamedIndividual ;
+    rdfs:label "Center-Right" .
+
+scp:Right a owl:NamedIndividual ;
+    rdfs:label "Right" .
+
+scp:FarRight a owl:NamedIndividual ;
+    rdfs:label "Far-Right" .
+
+# ============================================================================
+# INFERENCE RULES (OWL 2 RL)
+# ============================================================================
+
+# If A cites B, and B is highly credible, A's credibility may be strengthened
+# (This is expressed declaratively; reasoning engines can implement inference)
+
+# If multiple independent high-credibility sources support a claim, the claim's verification status strengthens
+
+# If a source consistently makes claims that are fact-checked as false, the source's credibility score should decrease
+
+# If two sources frequently cite each other, consider potential echo chamber effect
+
+# ============================================================================
+# ANNOTATIONS
+# ============================================================================
+
+scp:CredibilityScore rdfs:comment "Credibility scores should be computed using multiple factors: domain expertise, track record, peer recognition, transparency, and correction history. Scores range from 0.0 (not credible) to 1.0 (highly credible)." .
+
+scp:BiasAssessment rdfs:comment "Bias assessment should be based on multiple independent evaluations (AllSides, MediaBiasFactCheck, Ad Fontes Media, etc.) and include confidence scores. Note that all sources have some bias; the goal is transparency, not elimination." .
+
+scp:cites rdfs:comment "Citation relationships should track how information flows through the media ecosystem. Citation accuracy should be verified when possible." .
+
+scp:supports rdfs:comment "Support relationships indicate agreement or corroboration. The strength and basis of support should be recorded." .
+
+scp:contradicts rdfs:comment "Contradiction relationships indicate disagreement or refutation. The specific aspects being contradicted should be documented." .

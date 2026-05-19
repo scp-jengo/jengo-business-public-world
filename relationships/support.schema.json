@@ -1,0 +1,263 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://scp-jengo.org/schemas/support.schema.json",
+  "type": "object",
+  "title": "Support/Contradiction Relationship",
+  "description": "Represents agreement, support, contradiction, or challenge relationships between entities (sources, claims, people, organizations)",
+  "required": ["id", "source", "target", "type", "timestamp"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier (UUID v4)",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "source": {
+      "type": "string",
+      "description": "Entity ID expressing the position"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": ["news-source", "fact-checker", "person", "organization", "claim"],
+      "description": "Type of source entity"
+    },
+    "target": {
+      "type": "string",
+      "description": "Entity ID being supported or contradicted"
+    },
+    "target_type": {
+      "type": "string",
+      "enum": ["news-source", "fact-checker", "person", "organization", "claim", "position"],
+      "description": "Type of target entity"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "supports",
+        "strongly-supports",
+        "contradicts",
+        "strongly-contradicts",
+        "questions",
+        "challenges",
+        "corroborates",
+        "refutes",
+        "qualifies",
+        "clarifies"
+      ],
+      "description": "Type of support/contradiction relationship"
+    },
+    "strength": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Strength of the relationship (0.0 = weak, 1.0 = very strong)"
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "statement": {
+          "type": "string",
+          "description": "The actual statement or position taken"
+        },
+        "quote": {
+          "type": "string",
+          "description": "Direct quote if applicable"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL where the position was stated"
+        },
+        "document_id": {
+          "type": "string",
+          "description": "Reference to document entity if applicable"
+        },
+        "context": {
+          "type": "string",
+          "description": "Context in which the position was taken"
+        }
+      },
+      "description": "Evidence for this relationship"
+    },
+    "basis": {
+      "type": "string",
+      "enum": [
+        "factual",
+        "methodological",
+        "interpretive",
+        "ideological",
+        "empirical",
+        "logical",
+        "ethical",
+        "practical"
+      ],
+      "description": "What is the basis of support/contradiction?"
+    },
+    "specificity": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "type": "string",
+          "enum": ["complete", "partial", "specific-aspect", "conditional"],
+          "description": "Does this apply to entire target or just part?"
+        },
+        "aspects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Specific aspects supported or contradicted"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Conditions under which support/contradiction applies"
+        }
+      },
+      "description": "How specific is this relationship?"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the support/contradiction was expressed"
+    },
+    "discovered": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this relationship was discovered/recorded"
+    },
+    "evolution": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "previous_type": {
+            "type": "string",
+            "description": "Previous relationship type"
+          },
+          "new_type": {
+            "type": "string",
+            "description": "New relationship type"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Why did the position change?"
+          }
+        }
+      },
+      "description": "History of how this relationship has evolved over time"
+    },
+    "credibility_impact": {
+      "type": "object",
+      "properties": {
+        "source_credibility": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Credibility of the source making this claim"
+        },
+        "impact_on_target": {
+          "type": "string",
+          "enum": ["strengthens", "weakens", "neutral", "unclear"],
+          "description": "How does this affect target's credibility?"
+        },
+        "reasoning": {
+          "type": "string",
+          "description": "Explanation of credibility impact"
+        }
+      },
+      "description": "How does this relationship affect credibility?"
+    },
+    "consensus": {
+      "type": "object",
+      "properties": {
+        "mainstream_view": {
+          "type": "string",
+          "enum": ["aligns", "diverges", "mixed", "unknown"],
+          "description": "Does this align with mainstream/expert consensus?"
+        },
+        "expert_agreement": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "What % of relevant experts agree with this position?"
+        },
+        "domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Relevant expert domains"
+        }
+      },
+      "description": "Relationship to broader consensus"
+    },
+    "significance": {
+      "type": "string",
+      "enum": ["critical", "important", "notable", "minor", "trivial"],
+      "description": "How significant is this support/contradiction?"
+    },
+    "verification": {
+      "type": "object",
+      "properties": {
+        "verified": {
+          "type": "boolean",
+          "description": "Has this relationship been verified?"
+        },
+        "verified_by": {
+          "type": "string",
+          "description": "Who verified this relationship"
+        },
+        "verification_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "verification_method": {
+          "type": "string",
+          "description": "How was this verified?"
+        }
+      },
+      "description": "Verification status"
+    },
+    "related_relationships": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "IDs of related support/contradiction relationships"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "curator": {
+          "type": "string"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Confidence that this relationship exists and is accurately characterized"
+        }
+      },
+      "required": ["created"]
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional context or notes"
+    }
+  },
+  "additionalProperties": false
+}

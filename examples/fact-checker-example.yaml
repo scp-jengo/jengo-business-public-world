@@ -1,0 +1,188 @@
+# Example Fact-Checker: PolitiFact
+# This is a real-world example of how to use the fact-checker schema
+
+id: "660e8400-e29b-41d4-a716-446655440002"
+
+name: "PolitiFact"
+
+alternative_names:
+  - "PolitiFact.com"
+
+url: "https://www.politifact.com"
+
+social_media:
+  twitter: "@PolitiFact"
+  facebook: "PolitiFact"
+
+methodology:
+  approach: "Multi-source verification with original research and expert consultation"
+  transparency: "high"
+  public_corrections: true
+  methodology_url: "https://www.politifact.com/article/2018/feb/12/principles-truth-o-meter-politifacts-methodology-i/"
+  steps:
+    - "Identify significant or viral claims from politicians, public figures, and social media"
+    - "Research original sources, documents, and data"
+    - "Interview relevant experts and stakeholders"
+    - "Consult multiple credible sources"
+    - "Apply Truth-O-Meter rating based on accuracy"
+    - "Publish detailed explanation with full source citations"
+    - "Update if new evidence emerges"
+
+rating_scale:
+  type: "custom"
+  labels:
+    - label: "True"
+      description: "The statement is accurate and there's nothing significant missing"
+    - label: "Mostly True"
+      description: "The statement is accurate but needs clarification or additional information"
+    - label: "Half True"
+      description: "The statement is partially accurate but leaves out important details or takes things out of context"
+    - label: "Mostly False"
+      description: "The statement contains an element of truth but ignores critical facts that would give a different impression"
+    - label: "False"
+      description: "The statement is not accurate"
+    - label: "Pants on Fire"
+      description: "The statement is not accurate and makes a ridiculous claim"
+
+independence:
+  score: 0.88
+  funding_sources:
+    - type: "donations"
+      source: "Individual donors"
+      percentage: 45
+    - type: "grants"
+      source: "Non-partisan foundations (Democracy Fund, Knight Foundation, etc.)"
+      percentage: 40
+    - type: "revenue"
+      source: "Advertising and licensing"
+      percentage: 15
+  conflicts_of_interest: []
+  funding_transparency: "high"
+  funding_disclosure_url: "https://www.politifact.com/who-pays-for-politifact/"
+
+certifications:
+  - organization: "IFCN"
+    type: "signatory"
+    status: "active"
+    date_obtained: "2016-09-15"
+    verification_url: "https://ifcncodeofprinciples.poynter.org/profile/politifact"
+  - organization: "Poynter Institute"
+    type: "operated-by"
+    status: "active"
+    date_obtained: "2007-08-01"
+
+parent_organization:
+  name: "Poynter Institute for Media Studies"
+  organization_id: ""
+  relationship: "Operated by Poynter Institute, a non-profit journalism school and research organization"
+
+founded: "2007-08-22"
+
+headquarters:
+  city: "St. Petersburg"
+  state: "FL"
+  country: "US"
+
+credibility:
+  score: 0.89
+  methodology: "Based on IFCN certification, Pulitzer Prize recognition, transparent methodology, consistent accuracy, and robust corrections policy"
+  last_updated: "2026-05-19T12:00:00Z"
+
+track_record:
+  total_checks: 25000
+  corrections_issued: 87
+  correction_rate: 0.00348
+  notable_checks:
+    - date: "2009-12-18"
+      claim: "Death panels in health care bill"
+      verdict: "Pants on Fire"
+      impact: "high"
+      url: "https://www.politifact.com/factchecks/2009/aug/10/sarah-palin/sarah-palin-death-panels/"
+    - date: "2024-11-10"
+      claim: "2024 election fraud allegations"
+      verdict: "False"
+      impact: "high"
+      url: "https://www.politifact.com/factchecks/2024/nov/10/viral-posts/"
+
+coverage:
+  scope: "national"
+  topics:
+    - "politics"
+    - "elections"
+    - "government"
+    - "public-health"
+    - "economy"
+    - "immigration"
+    - "climate"
+    - "viral-claims"
+  languages:
+    - "en"
+
+bias:
+  political: "center"
+  confidence: 0.82
+  notes: "Some conservative critics claim liberal bias; some liberal critics claim conservative bias. Independent analysis shows balanced selection of claims across political spectrum. IFCN certification requires non-partisanship."
+
+staff:
+  size: "medium"
+  notable_staff:
+    - "Angie Drobnic Holan - Editor-in-Chief"
+    - "Aaron Sharockman - Executive Director (former)"
+    - "Katie Sanders - Managing Editor"
+
+awards:
+  - name: "Pulitzer Prize"
+    year: 2009
+    organization: "Pulitzer Prize Board"
+    description: "National Reporting - for fact-checking during 2008 presidential election"
+
+controversies:
+  - date: "2016-12-16"
+    description: "Criticized by some for rating 'If You Like Your Health Care Plan, You Can Keep It' as 2013 Lie of the Year"
+    resolution: "Defended decision with detailed methodology explanation"
+    impact: "minor"
+  - date: "2020-03-20"
+    description: "Facebook fact-checking partnership raised concerns about social media censorship"
+    resolution: "Maintained editorial independence, published transparency reports"
+    impact: "minor"
+
+status: "active"
+
+notes: |
+  PolitiFact is one of the most well-known fact-checking organizations in the United States.
+
+  Founded: August 22, 2007 by the Tampa Bay Times (then St. Petersburg Times)
+  Now operated by: The Poynter Institute for Media Studies
+
+  Notable characteristics:
+  - Won the 2009 Pulitzer Prize for National Reporting
+  - IFCN signatory since 2016 (founding signatory)
+  - Truth-O-Meter rating system widely recognized
+  - Covers claims from politicians, public figures, and viral social media posts
+  - Publishes detailed fact-checks with full sourcing
+  - Partners with Facebook for fact-checking (2016-present)
+  - State affiliates in multiple US states
+
+  Specialties:
+  - Political claims and campaign statements
+  - Government policy fact-checking
+  - Viral misinformation debunking
+  - Election integrity claims
+
+  Credibility notes:
+  - Consistently rated as credible by media watchdogs
+  - Transparent methodology published and regularly updated
+  - Robust corrections policy - updates fact-checks when new evidence emerges
+  - Non-partisan funding from journalism foundations
+  - IFCN certification requires adherence to strict principles
+
+  Unique features:
+  - Annual "Lie of the Year" designation
+  - Searchable archive of 25,000+ fact-checks
+  - Original research and document analysis
+  - Regular "Ask PolitiFact" feature responding to reader questions
+
+metadata:
+  created: "2026-05-19T12:00:00Z"
+  updated: "2026-05-19T12:00:00Z"
+  curator: "jengo-system"
