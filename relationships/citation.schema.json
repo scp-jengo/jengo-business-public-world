@@ -1,0 +1,149 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://scp-jengo.org/schemas/citation.schema.json",
+  "type": "object",
+  "title": "Citation Relationship",
+  "description": "One entity citing another - represents information flow and attribution relationships",
+  "required": ["id", "source", "target", "type", "timestamp"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier (UUID v4)",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "source": {
+      "type": "string",
+      "description": "Entity ID doing the citing"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": ["news-source", "fact-checker", "person", "organization", "document"],
+      "description": "Type of source entity"
+    },
+    "target": {
+      "type": "string",
+      "description": "Entity ID being cited"
+    },
+    "target_type": {
+      "type": "string",
+      "enum": ["news-source", "fact-checker", "person", "organization", "document", "claim"],
+      "description": "Type of target entity"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "direct-quote",
+        "paraphrase",
+        "reference",
+        "support",
+        "criticism",
+        "rebuttal",
+        "amplification",
+        "correction"
+      ],
+      "description": "Type of citation relationship"
+    },
+    "quote_text": {
+      "type": "string",
+      "description": "Exact quote if type is 'direct-quote'"
+    },
+    "context": {
+      "type": "string",
+      "description": "How the citation is used - surrounding context"
+    },
+    "purpose": {
+      "type": "string",
+      "enum": [
+        "attribution",
+        "evidence",
+        "counterpoint",
+        "background",
+        "expert-opinion",
+        "data-source"
+      ],
+      "description": "Why is this entity being cited?"
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL where citation appears"
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Page number if applicable"
+        },
+        "paragraph": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Paragraph number if applicable"
+        },
+        "timestamp_in_media": {
+          "type": "string",
+          "description": "Timestamp in video/audio (HH:MM:SS format)"
+        }
+      },
+      "description": "Where in the source document the citation occurs"
+    },
+    "accuracy": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["accurate", "misleading", "out-of-context", "misattributed", "fabricated", "unverified"],
+          "description": "Accuracy of the citation"
+        },
+        "explanation": {
+          "type": "string",
+          "description": "Explanation of accuracy assessment"
+        },
+        "verified_by": {
+          "type": "string",
+          "description": "Who verified the accuracy"
+        },
+        "verification_date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "description": "Accuracy assessment of the citation"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the citation was made"
+    },
+    "discovered": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this citation relationship was discovered/recorded"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "curator": {
+          "type": "string"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Confidence that this citation relationship is correct"
+        }
+      },
+      "required": ["created"]
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes about this citation"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,150 @@
+# News Source Template
+# Copy this file and fill in the details to add a new news source to the world model
+#
+# Fields marked with * are required
+# Remove optional sections if not applicable
+
+# * Unique identifier - leave empty, will be generated
+id: ""
+
+# * Official name of the news source
+name: "Example News Network"
+
+# Alternative names, abbreviations, former names
+alternative_names:
+  - "ENN"
+  - "Example Network"
+
+# * Primary medium type
+# Options: newspaper | tv | radio | online | magazine | wire-service | newsletter | podcast
+type: "online"
+
+# * Primary website URL
+url: "https://example.com"
+
+# Social media accounts (optional)
+social_media:
+  twitter: "@examplenews"
+  facebook: "examplenews"
+  youtube: "examplenews"
+
+# * Credibility assessment
+credibility:
+  # Score from 0.0 (not credible) to 1.0 (highly credible)
+  score: 0.75
+
+  # How was this score calculated?
+  methodology: "Based on MediaBiasFactCheck + AllSides + manual review of factual reporting history"
+
+  # When was credibility last assessed?
+  last_updated: "2026-05-19T00:00:00Z"
+
+  # Factual reporting track record
+  # Options: very-high | high | mostly-factual | mixed | low | very-low
+  factual_reporting: "high"
+
+  # External credibility ratings used
+  sources:
+    - "MediaBiasFactCheck"
+    - "AllSides"
+
+# Bias assessment (optional but recommended)
+bias:
+  # Options: far-left | left | center-left | center | center-right | right | far-right | unknown
+  political: "center"
+
+  # Confidence in bias classification (0.0-1.0)
+  confidence: 0.8
+
+  # How was bias determined?
+  methodology: "Analyzed editorial positions, expert assessments, content analysis"
+
+# Ownership information
+ownership:
+  owner: "Example Media Corporation"
+
+  # Options: independent | corporate | government | public | non-profit | consortium
+  owner_type: "corporate"
+
+  # Ultimate parent company if applicable
+  parent_company: "Global Media Holdings"
+
+  # Primary funding sources
+  funding_sources:
+    - "Advertising"
+    - "Subscriptions"
+
+# When was the organization founded?
+founded: "2010-01-01"
+
+# Headquarters location
+headquarters:
+  city: "New York"
+  state: "NY"
+  country: "US"  # ISO 3166-1 alpha-2 code
+
+# Coverage information
+coverage:
+  # Options: local | regional | national | international
+  scope: "national"
+
+  # Primary topics covered
+  topics:
+    - "politics"
+    - "business"
+    - "technology"
+    - "entertainment"
+
+  # Languages published in (ISO 639 codes)
+  languages:
+    - "en"  # English
+
+# Staff information (optional)
+staff:
+  # Options: small | medium | large | unknown
+  size: "medium"
+
+  # Notable journalists
+  notable_journalists:
+    - "Jane Reporter"
+    - "John Columnist"
+
+# Awards received (optional)
+awards:
+  - name: "Excellence in Journalism Award"
+    year: 2025
+    description: "For investigative reporting on public health"
+
+# Notable controversies (optional)
+# Include significant credibility issues that users should know about
+controversies:
+  - date: "2024-03-15"
+    description: "Published incorrect information about election results, issued correction within 24 hours"
+    resolution: "Full correction published, source disciplined"
+    # Options: none | minor | moderate | major | severe
+    credibility_impact: "minor"
+
+# Corrections policy
+corrections_policy:
+  has_policy: true
+  policy_url: "https://example.com/corrections"
+  # Options: high | medium | low | none
+  transparency: "high"
+
+# Current operational status
+# Options: active | defunct | merged | suspended
+status: "active"
+
+# Additional notes (optional)
+notes: |
+  Known for: Balanced political coverage, strong investigative journalism team
+
+  Specialties: Local politics, technology sector reporting
+
+  Notable characteristics: Publishes corrections prominently, maintains reader ombudsman
+
+# Metadata (filled automatically by system)
+metadata:
+  created: ""  # Auto-filled
+  updated: ""  # Auto-filled
+  curator: ""  # Your name/ID

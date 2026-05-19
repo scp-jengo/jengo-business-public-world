@@ -1,0 +1,130 @@
+# Example News Source: Reuters
+# This is a real-world example of how to use the news-source schema
+
+id: "550e8400-e29b-41d4-a716-446655440001"
+
+name: "Reuters"
+
+alternative_names:
+  - "Thomson Reuters"
+  - "Reuters News Agency"
+
+type: "wire-service"
+
+url: "https://www.reuters.com"
+
+social_media:
+  twitter: "@Reuters"
+  facebook: "Reuters"
+  youtube: "Reuters"
+
+credibility:
+  score: 0.92
+  methodology: "Based on MediaBiasFactCheck (Very High factual reporting), AllSides (Center), 170+ year track record, and Pulitzer Prize history"
+  last_updated: "2026-05-19T12:00:00Z"
+  factual_reporting: "very-high"
+  sources:
+    - "MediaBiasFactCheck"
+    - "AllSides"
+    - "Ad Fontes Media"
+
+bias:
+  political: "center"
+  confidence: 0.9
+  methodology: "Consistent center rating across multiple bias-tracking organizations. Editorial policy emphasizes factual reporting without opinion."
+  notes: "Reuters maintains strict separation between news and opinion. Known for 'just the facts' reporting style."
+
+ownership:
+  owner: "Thomson Reuters Corporation"
+  owner_type: "corporate"
+  parent_company: "Thomson Reuters Corporation"
+  funding_sources:
+    - "Subscriptions"
+    - "Financial data services"
+    - "Professional services"
+
+founded: "1851-10-01"
+
+headquarters:
+  city: "London"
+  state: ""
+  country: "GB"
+
+coverage:
+  scope: "international"
+  topics:
+    - "world-news"
+    - "business"
+    - "finance"
+    - "politics"
+    - "technology"
+    - "health"
+    - "environment"
+  languages:
+    - "en"  # English (primary)
+    - "es"  # Spanish
+    - "fr"  # French
+    - "de"  # German
+    - "it"  # Italian
+    - "ja"  # Japanese
+    - "zh"  # Chinese
+    - "ar"  # Arabic
+
+staff:
+  size: "large"
+  notable_journalists:
+    - "Various international correspondents"
+
+awards:
+  - name: "Pulitzer Prize"
+    year: 2023
+    description: "Breaking News Photography - Ukraine war coverage"
+  - name: "Pulitzer Prize"
+    year: 2022
+    description: "Feature Photography"
+  - name: "Pulitzer Prize"
+    year: 2020
+    description: "Breaking News Photography - Hong Kong protests"
+
+controversies:
+  - date: "2012-08-31"
+    description: "Published embargoed Apple iPhone 5 details early"
+    resolution: "Apologized, reviewed embargo procedures"
+    credibility_impact: "minor"
+
+corrections_policy:
+  has_policy: true
+  policy_url: "https://www.reuters.com/info-pages/disclaimer/"
+  transparency: "high"
+
+status: "active"
+
+notes: |
+  Reuters is one of the world's largest and most trusted international news organizations.
+
+  Founded: 1851 by Paul Julius Reuter in London
+
+  Notable characteristics:
+  - Wire service model: Provides news to other media outlets
+  - Known for speed and accuracy
+  - Strict editorial standards and fact-checking
+  - Winner of multiple Pulitzer Prizes
+  - Operates globally with bureaus in over 200 locations
+  - Reuters Trust Principles: independence, integrity, freedom from bias
+
+  Specialties:
+  - Breaking international news
+  - Financial markets and business news
+  - Conflict and war reporting
+  - Investigative journalism
+
+  Credibility notes:
+  - Consistently rated as one of the most factually accurate news sources
+  - Minimal bias in reporting
+  - Separates news from opinion clearly
+  - Corrections published promptly when errors occur
+
+metadata:
+  created: "2026-05-19T12:00:00Z"
+  updated: "2026-05-19T12:00:00Z"
+  curator: "jengo-system"
