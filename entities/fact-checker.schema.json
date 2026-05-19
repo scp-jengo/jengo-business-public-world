@@ -1,0 +1,377 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://scp-jengo.org/schemas/fact-checker.schema.json",
+  "type": "object",
+  "title": "Fact Checker Organization",
+  "description": "An organization that performs systematic fact-checking of claims in public discourse",
+  "required": ["id", "name", "url", "methodology", "certifications"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier (UUID v4)",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 200,
+      "description": "Official name of the fact-checking organization"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Primary website URL"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "independent-organization",
+        "news-affiliated",
+        "academic",
+        "government",
+        "crowd-sourced",
+        "automated"
+      ],
+      "description": "Type of fact-checking organization"
+    },
+    "methodology": {
+      "type": "object",
+      "required": ["approach", "transparency"],
+      "properties": {
+        "approach": {
+          "type": "string",
+          "description": "Detailed description of how they perform fact-checks"
+        },
+        "process_steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Step-by-step fact-checking process"
+        },
+        "sources_used": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Types of sources consulted"
+        },
+        "transparency": {
+          "type": "string",
+          "enum": ["very-high", "high", "medium", "low"],
+          "description": "How transparent is their process?"
+        },
+        "methodology_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to published methodology"
+        },
+        "public_corrections": {
+          "type": "boolean",
+          "description": "Do they publicly correct their own errors?"
+        },
+        "corrections_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to corrections page"
+        }
+      },
+      "additionalProperties": false
+    },
+    "certifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["organization", "type"],
+        "properties": {
+          "organization": {
+            "type": "string",
+            "description": "Certifying organization (e.g., 'IFCN', 'Poynter Institute')"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of certification"
+          },
+          "issued": {
+            "type": "string",
+            "format": "date",
+            "description": "When certification was issued"
+          },
+          "valid_until": {
+            "type": "string",
+            "format": "date",
+            "description": "When certification expires"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "expired", "revoked"],
+            "description": "Current status of certification"
+          },
+          "verification_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to verify certification"
+          }
+        }
+      },
+      "description": "Professional certifications held"
+    },
+    "rating_scale": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["binary", "multi-level", "numeric", "custom"],
+          "description": "Type of rating scale used"
+        },
+        "levels": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {"type": "string"},
+              "description": {"type": "string"}
+            }
+          },
+          "description": "Rating levels (e.g., 'True', 'Mostly True', 'Half True', etc.)"
+        },
+        "scale_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL explaining rating scale"
+        }
+      },
+      "description": "How this organization rates claims"
+    },
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "topics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Topics covered (politics, health, science, etc.)"
+        },
+        "geographic_scope": {
+          "type": "string",
+          "enum": ["local", "national", "regional", "global"],
+          "description": "Geographic scope of fact-checking"
+        },
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 3
+          },
+          "description": "Languages fact-checks are published in (ISO 639 codes)"
+        }
+      },
+      "description": "What this organization covers"
+    },
+    "independence": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Independence score (0.0 = not independent, 1.0 = fully independent)"
+        },
+        "ownership": {
+          "type": "string",
+          "description": "Who owns this organization"
+        },
+        "funding_sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source": {"type": "string"},
+              "percentage": {"type": "number", "minimum": 0, "maximum": 100},
+              "disclosed": {"type": "boolean"}
+            }
+          },
+          "description": "Funding sources and percentages"
+        },
+        "conflicts_of_interest": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Known or potential conflicts of interest"
+        },
+        "political_affiliation": {
+          "type": "string",
+          "enum": ["none", "left", "center-left", "center", "center-right", "right", "unknown"],
+          "description": "Political affiliation if any"
+        }
+      },
+      "description": "Independence and funding information"
+    },
+    "staff": {
+      "type": "object",
+      "properties": {
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large", "unknown"],
+          "description": "Approximate staff size"
+        },
+        "expertise": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Areas of staff expertise"
+        },
+        "editors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Names of senior editors/leadership"
+        }
+      },
+      "description": "Staff information"
+    },
+    "track_record": {
+      "type": "object",
+      "properties": {
+        "founded": {
+          "type": "string",
+          "format": "date",
+          "description": "When organization was founded"
+        },
+        "fact_checks_published": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Approximate number of fact-checks published"
+        },
+        "corrections_rate": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Percentage of fact-checks requiring correction"
+        },
+        "awards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "year": {"type": "integer"},
+              "description": {"type": "string"}
+            }
+          },
+          "description": "Awards and recognition received"
+        },
+        "controversies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "date": {"type": "string", "format": "date"},
+              "description": {"type": "string"},
+              "resolution": {"type": "string"},
+              "impact": {
+                "type": "string",
+                "enum": ["none", "minor", "moderate", "major", "severe"]
+              }
+            }
+          },
+          "description": "Notable controversies"
+        }
+      },
+      "description": "Historical track record"
+    },
+    "contact": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Contact email"
+        },
+        "submission_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL for submitting claims to fact-check"
+        },
+        "social_media": {
+          "type": "object",
+          "properties": {
+            "twitter": {"type": "string"},
+            "facebook": {"type": "string"}
+          }
+        }
+      },
+      "description": "Contact information"
+    },
+    "api": {
+      "type": "object",
+      "properties": {
+        "available": {
+          "type": "boolean",
+          "description": "Does this organization provide an API?"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "API documentation URL"
+        },
+        "authentication_required": {
+          "type": "boolean"
+        }
+      },
+      "description": "API availability"
+    },
+    "credibility_assessment": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Overall credibility score for this fact-checker"
+        },
+        "methodology": {
+          "type": "string",
+          "description": "How credibility was assessed"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "description": "Credibility assessment of the fact-checker itself"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "defunct", "suspended"],
+      "description": "Current operational status"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "curator": {
+          "type": "string"
+        }
+      },
+      "required": ["created"]
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    }
+  },
+  "additionalProperties": false
+}

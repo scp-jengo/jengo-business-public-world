@@ -1,0 +1,297 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://scp-jengo.org/schemas/news-source.schema.json",
+  "type": "object",
+  "title": "News Source",
+  "description": "A news or media organization - newspaper, TV, radio, online publication, or wire service",
+  "required": ["id", "name", "type", "url", "credibility"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier (UUID v4)",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 200,
+      "description": "Official name of the news source"
+    },
+    "alternative_names": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Alternative names, abbreviations, or former names"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "newspaper",
+        "tv",
+        "radio",
+        "online",
+        "magazine",
+        "wire-service",
+        "newsletter",
+        "podcast"
+      ],
+      "description": "Primary medium type"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Primary website URL"
+    },
+    "social_media": {
+      "type": "object",
+      "properties": {
+        "twitter": {"type": "string"},
+        "facebook": {"type": "string"},
+        "youtube": {"type": "string"},
+        "instagram": {"type": "string"}
+      },
+      "description": "Official social media accounts"
+    },
+    "credibility": {
+      "type": "object",
+      "required": ["score", "last_updated"],
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Overall credibility score (0.0 = not credible, 1.0 = highly credible)"
+        },
+        "methodology": {
+          "type": "string",
+          "description": "How the score was calculated (e.g., 'MediaBiasFactCheck + AllSides + manual review')"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When credibility was last assessed"
+        },
+        "factual_reporting": {
+          "type": "string",
+          "enum": ["very-high", "high", "mostly-factual", "mixed", "low", "very-low"],
+          "description": "Track record of factual accuracy"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "External credibility ratings used (MediaBiasFactCheck, AllSides, etc.)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "bias": {
+      "type": "object",
+      "properties": {
+        "political": {
+          "type": "string",
+          "enum": [
+            "far-left",
+            "left",
+            "center-left",
+            "center",
+            "center-right",
+            "right",
+            "far-right",
+            "unknown"
+          ],
+          "description": "Political bias classification"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Confidence in bias classification"
+        },
+        "methodology": {
+          "type": "string",
+          "description": "How bias was determined"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Additional context about bias"
+        }
+      },
+      "description": "Bias assessment for this source"
+    },
+    "ownership": {
+      "type": "object",
+      "properties": {
+        "owner": {
+          "type": "string",
+          "description": "Parent company or owner name"
+        },
+        "owner_type": {
+          "type": "string",
+          "enum": [
+            "independent",
+            "corporate",
+            "government",
+            "public",
+            "non-profit",
+            "consortium"
+          ],
+          "description": "Type of ownership"
+        },
+        "parent_company": {
+          "type": "string",
+          "description": "Ultimate parent company if part of larger organization"
+        },
+        "funding_sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Primary funding sources"
+        }
+      },
+      "description": "Ownership and funding information"
+    },
+    "founded": {
+      "type": "string",
+      "format": "date",
+      "description": "Date organization was founded"
+    },
+    "headquarters": {
+      "type": "object",
+      "properties": {
+        "city": {"type": "string"},
+        "state": {"type": "string"},
+        "country": {"type": "string", "minLength": 2, "maxLength": 2, "description": "ISO 3166-1 alpha-2 country code"}
+      },
+      "description": "Primary headquarters location"
+    },
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "type": "string",
+          "enum": ["local", "regional", "national", "international"],
+          "description": "Geographic scope of coverage"
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Primary topics covered (politics, business, technology, etc.)"
+        },
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 3,
+            "description": "ISO 639 language codes"
+          },
+          "description": "Languages published in"
+        }
+      },
+      "description": "What this source covers"
+    },
+    "staff": {
+      "type": "object",
+      "properties": {
+        "size": {
+          "type": "string",
+          "enum": ["small", "medium", "large", "unknown"],
+          "description": "Approximate size of editorial staff"
+        },
+        "notable_journalists": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Well-known journalists associated with this source"
+        }
+      },
+      "description": "Staff information"
+    },
+    "awards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "year": {"type": "integer"},
+          "description": {"type": "string"}
+        }
+      },
+      "description": "Notable awards received"
+    },
+    "controversies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {"type": "string", "format": "date"},
+          "description": {"type": "string"},
+          "resolution": {"type": "string"},
+          "credibility_impact": {
+            "type": "string",
+            "enum": ["none", "minor", "moderate", "major", "severe"]
+          }
+        }
+      },
+      "description": "Notable controversies or credibility issues"
+    },
+    "corrections_policy": {
+      "type": "object",
+      "properties": {
+        "has_policy": {
+          "type": "boolean",
+          "description": "Does source have documented corrections policy?"
+        },
+        "policy_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to corrections policy"
+        },
+        "transparency": {
+          "type": "string",
+          "enum": ["high", "medium", "low", "none"],
+          "description": "How transparent is the corrections process?"
+        }
+      },
+      "description": "How source handles corrections"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "defunct", "merged", "suspended"],
+      "description": "Current operational status"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this record was created"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this record was last updated"
+        },
+        "curator": {
+          "type": "string",
+          "description": "Who maintains this record"
+        }
+      },
+      "required": ["created"],
+      "description": "Record metadata"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes or context about this source"
+    }
+  },
+  "additionalProperties": false
+}

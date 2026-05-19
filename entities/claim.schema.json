@@ -1,0 +1,330 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://scp-jengo.org/schemas/claim.schema.json",
+  "type": "object",
+  "title": "Claim",
+  "description": "A factual claim that can be verified as true, false, or somewhere in between",
+  "required": ["id", "text", "source", "created"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier (UUID v4)",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 10,
+      "description": "The claim being made (the exact quote or paraphrase)"
+    },
+    "normalized_text": {
+      "type": "string",
+      "description": "Normalized/simplified version of the claim for comparison"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "factual",
+        "statistical",
+        "causal",
+        "predictive",
+        "opinion",
+        "mixed"
+      ],
+      "description": "Type of claim"
+    },
+    "topic": {
+      "type": "string",
+      "description": "Primary topic (politics, health, science, etc.)"
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Keywords for categorization and search"
+    },
+    "source": {
+      "type": "object",
+      "required": ["type", "reference"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "article",
+            "video",
+            "audio",
+            "social-media",
+            "speech",
+            "document",
+            "interview",
+            "advertisement",
+            "other"
+          ],
+          "description": "Type of source where claim appeared"
+        },
+        "reference": {
+          "type": "string",
+          "description": "URL, citation, or identifier for the source"
+        },
+        "author": {
+          "type": "string",
+          "description": "Who made this claim"
+        },
+        "author_title": {
+          "type": "string",
+          "description": "Author's title or position (e.g., 'Senator', 'CEO')"
+        },
+        "publisher": {
+          "type": "string",
+          "description": "Publishing organization"
+        },
+        "published": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When claim was published"
+        },
+        "accessed": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When source was accessed"
+        },
+        "context": {
+          "type": "string",
+          "description": "Surrounding context for the claim"
+        }
+      },
+      "additionalProperties": false
+    },
+    "verification": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "unverified",
+            "in-progress",
+            "verified",
+            "refuted",
+            "disputed",
+            "outdated"
+          ],
+          "description": "Current verification status"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Confidence level in verification (0.0-1.0)"
+        },
+        "verdict": {
+          "type": "string",
+          "enum": [
+            "true",
+            "mostly-true",
+            "half-true",
+            "mostly-false",
+            "false",
+            "unverifiable",
+            "misleading",
+            "out-of-context",
+            "satire"
+          ],
+          "description": "Verification verdict"
+        },
+        "verdict_explanation": {
+          "type": "string",
+          "description": "Detailed explanation of the verdict"
+        },
+        "methodology": {
+          "type": "string",
+          "description": "How verification was performed"
+        },
+        "supporting_sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {"type": "string", "format": "uri"},
+              "description": {"type": "string"},
+              "credibility": {"type": "number", "minimum": 0.0, "maximum": 1.0}
+            }
+          },
+          "description": "Sources that support this claim"
+        },
+        "contradicting_sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {"type": "string", "format": "uri"},
+              "description": {"type": "string"},
+              "credibility": {"type": "number", "minimum": 0.0, "maximum": 1.0}
+            }
+          },
+          "description": "Sources that contradict this claim"
+        },
+        "primary_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["document", "study", "data", "video", "image", "testimony"]
+              },
+              "url": {"type": "string", "format": "uri"},
+              "description": {"type": "string"}
+            }
+          },
+          "description": "Primary evidence used in verification"
+        },
+        "verified_by": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "organization_id": {
+                "type": "string",
+                "description": "ID of fact-checking organization"
+              },
+              "organization_name": {
+                "type": "string"
+              },
+              "rating": {
+                "type": "string",
+                "description": "Their rating for this claim"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "URL to their fact-check"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "description": "Fact-checking organizations that verified this"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When verification was last updated"
+        }
+      },
+      "additionalProperties": false
+    },
+    "importance": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Importance score (0.0 = trivial, 1.0 = critical)"
+        },
+        "reach": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "viral"],
+          "description": "How widely circulated is this claim?"
+        },
+        "impact": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "critical"],
+          "description": "Potential impact if claim is false"
+        },
+        "urgency": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "urgent"],
+          "description": "How urgently does this need verification?"
+        }
+      },
+      "description": "Importance assessment"
+    },
+    "related_claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claim_id": {"type": "string"},
+          "relationship": {
+            "type": "string",
+            "enum": ["supports", "contradicts", "similar", "derivative", "updated"]
+          }
+        }
+      },
+      "description": "Related claims"
+    },
+    "corrections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["date", "description"],
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "description": {
+            "type": "string",
+            "description": "What was corrected"
+          },
+          "corrected_by": {
+            "type": "string",
+            "description": "Who made the correction"
+          }
+        }
+      },
+      "description": "Corrections to this claim or its verification"
+    },
+    "language": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 3,
+      "description": "Language of claim (ISO 639 code)"
+    },
+    "geographic_relevance": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 2,
+        "description": "ISO 3166-1 alpha-2 country codes"
+      },
+      "description": "Countries where this claim is relevant"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this claim was first recorded in the system"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "submitter": {
+          "type": "string",
+          "description": "Who submitted this claim for verification"
+        },
+        "curator": {
+          "type": "string",
+          "description": "Who maintains this record"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "views": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of times this claim has been viewed"
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes or context"
+    }
+  },
+  "additionalProperties": false
+}
