@@ -1,0 +1,56 @@
+# Service Registry Entry
+# Copy this file to your private world repo as services/<id>.yaml
+# Represents a running (or stopped) service in your operational environment.
+
+# Unique identifier for this service. Use kebab-case. Stable — other entries reference this.
+id: my-service
+
+# Human-readable name
+name: My Service
+
+# What this service does and who depends on it.
+description: >
+  What this service provides, what consumes it, and why it exists.
+
+# Current operational status.
+# running   - service is live and responding normally
+# degraded  - service is live but not operating at full capacity or with errors
+# stopped   - service is not running
+status: running
+
+# The primary URL where this service is reachable.
+url: https://service.example.com
+
+# URL for the health check endpoint, if one exists.
+# Optional — omit if the service has no health check endpoint.
+health_check_url: https://service.example.com/api/health
+
+# Technologies and frameworks this service is built with.
+tech_stack:
+  - language-or-framework
+  - database-or-runtime
+
+# Who owns and is responsible for this service. Use ID from person entries.
+owner: person-id
+
+# Other service IDs this service depends on at runtime.
+# Optional — omit if no dependencies.
+dependencies:
+  - other-service-id
+
+# How and where this service is deployed.
+deployment:
+  # How the service is deployed: docker, k8s, bare-metal, serverless, managed
+  method: docker
+  # The host or cluster where the service runs.
+  host: server.example.com
+  # The port the service listens on internally.
+  port: 8080
+
+# URL for monitoring dashboard, logs, or metrics for this service.
+# Optional.
+monitoring_url: https://monitoring.example.com/service/my-service
+
+# When this service was last deployed. ISO 8601 datetime.
+# Optional — update when deploying.
+last_deployed: "2026-01-01T12:00:00Z"

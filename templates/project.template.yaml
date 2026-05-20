@@ -1,0 +1,55 @@
+# Project Registry Entry
+# Copy this file to your private world repo as projects/<id>.yaml
+# Fill in all fields. Remove fields that do not apply rather than leaving them blank.
+
+# Unique identifier for this project. Use kebab-case. Must be stable — other entries reference this.
+id: my-project
+
+# Human-readable name
+name: My Project
+
+# One or two sentences describing what this project is and what it produces.
+description: >
+  What this project is, what problem it solves, and what it produces when done.
+
+# Current state of the project.
+# active    - being worked on now
+# paused    - not actively worked on but will resume
+# archived  - no longer relevant, kept for reference
+# completed - done and delivered
+status: active
+
+# Who is responsible for this project. Use the ID from person entries.
+owner: person-id
+
+# When work started. ISO 8601 date.
+started_date: "2026-01-01"
+
+# When the project is expected to be complete or reach its next major milestone. ISO 8601 date.
+# Optional — omit if open-ended.
+target_date: "2026-06-01"
+
+# URL of the source code repository, if applicable.
+# Optional.
+repo_url: https://github.com/yourorg/your-repo
+
+# Technologies, languages, and frameworks this project uses.
+tech_stack:
+  - language-or-framework
+  - another-tool
+
+# Other project IDs this project depends on. These must exist in your project registry.
+# Optional — omit if no dependencies.
+dependencies:
+  - other-project-id
+
+# IDs of agents that are involved in working on this project.
+# Optional — omit if no agents assigned.
+agents_involved:
+  - agent-id
+
+# Any notes that are useful for an agent working in this project's context.
+# Include: current blockers, recent decisions, what is and is not in scope.
+# Optional.
+notes: >
+  Current status notes, blockers, recent decisions relevant to the agent.

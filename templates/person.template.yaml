@@ -1,0 +1,43 @@
+# Person Registry Entry
+# Copy this file to your PRIVATE world repo as people/<id>.yaml
+#
+# IMPORTANT: Keep person entries in your private world repo only.
+# Do not commit real person data to any public repository.
+# This template exists here so agents know the schema; the data stays private.
+
+# Unique identifier for this person. Use kebab-case. Referenced by projects and services.
+id: firstname-lastname
+
+# Full name
+name: First Last
+
+# Their role in the organization or project context.
+role: Engineer / Founder / Advisor / etc.
+
+# Contact information. Include what is relevant; omit what is not.
+contact:
+  # Primary email address
+  email: person@example.com
+  # Slack handle, if applicable
+  slack: "@handle"
+  # GitHub username, if applicable
+  github: github-username
+
+# Timezone as IANA timezone name.
+timezone: Europe/Amsterdam
+
+# Areas of expertise. Used by agents to route questions and decisions.
+expertise:
+  - area-of-expertise
+  - another-area
+
+# Project IDs this person is currently active on.
+# Keep this current — stale data misleads agents.
+active_projects:
+  - project-id
+
+# Any notes useful for agent context when working with or on behalf of this person.
+# Include: communication preferences, availability patterns, current focus.
+# Optional.
+notes: >
+  Notes on working with this person, their current focus, and anything an agent should know.

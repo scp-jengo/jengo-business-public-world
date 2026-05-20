@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/scp-jengo/jengo-business-public-world/schemas/service.schema.json",
+  "title": "Service",
+  "description": "A running service registered in the Jengo world layer.",
+  "type": "object",
+  "required": ["id", "name", "description", "status", "url", "tech_stack", "owner", "deployment"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for this service. Kebab-case. Stable — other entries reference this.",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name for the service.",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "description": "What this service provides, what consumes it, and why it exists.",
+      "minLength": 10
+    },
+    "status": {
+      "type": "string",
+      "description": "Current operational status of the service.",
+      "enum": ["running", "degraded", "stopped"]
+    },
+    "url": {
+      "type": "string",
+      "description": "Primary URL where this service is reachable.",
+      "format": "uri"
+    },
+    "health_check_url": {
+      "type": "string",
+      "description": "URL for the health check endpoint. Optional.",
+      "format": "uri"
+    },
+    "tech_stack": {
+      "type": "array",
+      "description": "Technologies and frameworks this service is built with.",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "owner": {
+      "type": "string",
+      "description": "ID of the person responsible for this service.",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "dependencies": {
+      "type": "array",
+      "description": "IDs of other services this service depends on at runtime. Optional.",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+      }
+    },
+    "deployment": {
+      "type": "object",
+      "description": "How and where this service is deployed.",
+      "required": ["method", "host"],
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "type": "string",
+          "description": "Deployment method.",
+          "enum": ["docker", "k8s", "bare-metal", "serverless", "managed"]
+        },
+        "host": {
+          "type": "string",
+          "description": "The host, server, or cluster where the service runs.",
+          "minLength": 1
+        },
+        "port": {
+          "type": "integer",
+          "description": "Port the service listens on internally. Optional.",
+          "minimum": 1,
+          "maximum": 65535
+        }
+      }
+    },
+    "monitoring_url": {
+      "type": "string",
+      "description": "URL for monitoring dashboard, logs, or metrics. Optional.",
+      "format": "uri"
+    },
+    "last_deployed": {
+      "type": "string",
+      "description": "When this service was last deployed. ISO 8601 datetime. Optional.",
+      "format": "date-time"
+    }
+  }
+}
