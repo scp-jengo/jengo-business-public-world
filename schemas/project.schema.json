@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/scp-jengo/jengo-business-public-world/schemas/project.schema.json",
+  "title": "Project",
+  "description": "A project registered in the Jengo world layer.",
+  "type": "object",
+  "required": ["id", "name", "description", "status", "owner", "started_date"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for this project. Kebab-case. Stable — other entries reference this.",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name for the project.",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "description": "One or two sentences describing what this project is and what it produces.",
+      "minLength": 10
+    },
+    "status": {
+      "type": "string",
+      "description": "Current state of the project.",
+      "enum": ["active", "paused", "archived", "completed"]
+    },
+    "owner": {
+      "type": "string",
+      "description": "ID of the person responsible for this project. Must exist in the person registry.",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "started_date": {
+      "type": "string",
+      "description": "When work started. ISO 8601 date.",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "target_date": {
+      "type": "string",
+      "description": "Expected completion or next major milestone date. ISO 8601 date. Optional.",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "repo_url": {
+      "type": "string",
+      "description": "URL of the source code repository. Optional.",
+      "format": "uri"
+    },
+    "tech_stack": {
+      "type": "array",
+      "description": "Technologies, languages, and frameworks this project uses.",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "dependencies": {
+      "type": "array",
+      "description": "IDs of other projects this project depends on. Optional.",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+      }
+    },
+    "agents_involved": {
+      "type": "array",
+      "description": "IDs of agents involved in this project. Optional.",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Notes useful for agent context: current blockers, recent decisions, scope boundaries. Optional."
+    }
+  }
+}
