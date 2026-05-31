@@ -1,0 +1,352 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://scp-jengo.org/schemas/organization.schema.json",
+  "type": "object",
+  "title": "Organization",
+  "description": "Any organization - company, non-profit, government agency, research institution, etc.",
+  "required": ["id", "name", "type"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier (UUID v4)",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 200,
+      "description": "Official organization name"
+    },
+    "alternative_names": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Alternative names, abbreviations, former names, DBAs"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "corporation",
+        "non-profit",
+        "government",
+        "academic",
+        "research",
+        "media",
+        "advocacy",
+        "think-tank",
+        "trade-association",
+        "professional-organization",
+        "international-organization",
+        "other"
+      ],
+      "description": "Type of organization"
+    },
+    "industry": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Industry sectors this organization operates in"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of organization's purpose and activities"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Primary website"
+    },
+    "founded": {
+      "type": "string",
+      "format": "date",
+      "description": "Date organization was founded"
+    },
+    "headquarters": {
+      "type": "object",
+      "properties": {
+        "city": {"type": "string"},
+        "state": {"type": "string"},
+        "country": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2,
+          "description": "ISO 3166-1 alpha-2 country code"
+        }
+      },
+      "description": "Headquarters location"
+    },
+    "locations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "city": {"type": "string"},
+          "state": {"type": "string"},
+          "country": {"type": "string"},
+          "type": {
+            "type": "string",
+            "enum": ["headquarters", "office", "facility", "branch"]
+          }
+        }
+      },
+      "description": "Additional locations"
+    },
+    "size": {
+      "type": "object",
+      "properties": {
+        "employees": {
+          "type": "string",
+          "enum": ["1-10", "11-50", "51-200", "201-500", "501-1000", "1001-5000", "5001-10000", "10000+", "unknown"]
+        },
+        "revenue": {
+          "type": "string",
+          "description": "Annual revenue range or amount"
+        }
+      },
+      "description": "Organization size"
+    },
+    "leadership": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "person_id": {
+            "type": "string",
+            "description": "ID of person entity"
+          },
+          "name": {"type": "string"},
+          "title": {"type": "string"},
+          "start_date": {"type": "string", "format": "date"},
+          "end_date": {"type": "string", "format": "date"},
+          "current": {"type": "boolean"}
+        }
+      },
+      "description": "Leadership team"
+    },
+    "ownership": {
+      "type": "object",
+      "properties": {
+        "structure": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private",
+            "non-profit",
+            "government",
+            "cooperative",
+            "partnership",
+            "sole-proprietorship"
+          ]
+        },
+        "parent_company": {
+          "type": "string",
+          "description": "Parent organization if subsidiary"
+        },
+        "subsidiaries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Subsidiary organizations"
+        }
+      },
+      "description": "Ownership structure"
+    },
+    "funding": {
+      "type": "object",
+      "properties": {
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "grants",
+                  "donations",
+                  "government",
+                  "revenue",
+                  "investments",
+                  "membership-fees",
+                  "other"
+                ]
+              },
+              "source": {"type": "string"},
+              "percentage": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              }
+            }
+          }
+        },
+        "transparency": {
+          "type": "string",
+          "enum": ["high", "medium", "low", "none"],
+          "description": "How transparent is funding?"
+        },
+        "disclosure_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to funding disclosures"
+        }
+      },
+      "description": "Funding information"
+    },
+    "mission": {
+      "type": "string",
+      "description": "Official mission statement"
+    },
+    "activities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Primary activities and programs"
+    },
+    "positions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "topic": {"type": "string"},
+          "position": {"type": "string"},
+          "url": {"type": "string", "format": "uri"},
+          "date": {"type": "string", "format": "date"}
+        }
+      },
+      "description": "Official policy positions on key issues"
+    },
+    "credibility": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "methodology": {"type": "string"},
+        "last_updated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "description": "Credibility assessment"
+    },
+    "bias": {
+      "type": "object",
+      "properties": {
+        "political": {
+          "type": "string",
+          "enum": ["far-left", "left", "center-left", "center", "center-right", "right", "far-right", "unknown"]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "notes": {"type": "string"}
+      },
+      "description": "Bias assessment"
+    },
+    "affiliations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "organization_id": {"type": "string"},
+          "organization_name": {"type": "string"},
+          "type": {
+            "type": "string",
+            "enum": ["member", "partner", "affiliate", "sponsor", "coalition"]
+          }
+        }
+      },
+      "description": "Affiliated organizations"
+    },
+    "certifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "organization": {"type": "string"},
+          "valid_until": {"type": "string", "format": "date"}
+        }
+      },
+      "description": "Professional certifications or accreditations"
+    },
+    "awards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "year": {"type": "integer"},
+          "description": {"type": "string"}
+        }
+      },
+      "description": "Awards received"
+    },
+    "controversies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {"type": "string", "format": "date"},
+          "description": {"type": "string"},
+          "resolution": {"type": "string"},
+          "impact": {
+            "type": "string",
+            "enum": ["none", "minor", "moderate", "major", "severe"]
+          }
+        }
+      },
+      "description": "Notable controversies"
+    },
+    "social_media": {
+      "type": "object",
+      "properties": {
+        "twitter": {"type": "string"},
+        "facebook": {"type": "string"},
+        "linkedin": {"type": "string"},
+        "youtube": {"type": "string"}
+      }
+    },
+    "contact": {
+      "type": "object",
+      "properties": {
+        "email": {"type": "string", "format": "email"},
+        "phone": {"type": "string"},
+        "address": {"type": "string"}
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "defunct", "merged", "acquired", "suspended"],
+      "description": "Current operational status"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "curator": {"type": "string"}
+      },
+      "required": ["created"]
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

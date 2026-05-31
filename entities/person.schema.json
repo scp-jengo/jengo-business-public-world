@@ -1,0 +1,320 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://scp-jengo.org/schemas/person.schema.json",
+  "type": "object",
+  "title": "Person",
+  "description": "An individual person - journalist, public figure, expert, or other notable individual",
+  "required": ["id", "name"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier (UUID v4)",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "name": {
+      "type": "object",
+      "required": ["full"],
+      "properties": {
+        "full": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Full legal name"
+        },
+        "first": {
+          "type": "string",
+          "description": "First name"
+        },
+        "middle": {
+          "type": "string",
+          "description": "Middle name(s)"
+        },
+        "last": {
+          "type": "string",
+          "description": "Last name"
+        },
+        "preferred": {
+          "type": "string",
+          "description": "Preferred name if different from legal name"
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Known aliases, pen names, or former names"
+        }
+      }
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "journalist",
+        "editor",
+        "columnist",
+        "reporter",
+        "anchor",
+        "correspondent",
+        "expert",
+        "researcher",
+        "academic",
+        "public-figure",
+        "politician",
+        "official",
+        "activist",
+        "author",
+        "content-creator",
+        "other"
+      ],
+      "description": "Primary professional role"
+    },
+    "specializations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Areas of expertise or specialization"
+    },
+    "affiliations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "organization_id": {
+            "type": "string",
+            "description": "ID of affiliated organization"
+          },
+          "organization_name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "description": "Role at this organization"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "current": {
+            "type": "boolean",
+            "description": "Is this a current affiliation?"
+          }
+        }
+      },
+      "description": "Organizational affiliations (employers, memberships)"
+    },
+    "credentials": {
+      "type": "object",
+      "properties": {
+        "education": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "institution": {"type": "string"},
+              "degree": {"type": "string"},
+              "field": {"type": "string"},
+              "year": {"type": "integer"}
+            }
+          },
+          "description": "Educational background"
+        },
+        "certifications": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "organization": {"type": "string"},
+              "year": {"type": "integer"}
+            }
+          },
+          "description": "Professional certifications"
+        },
+        "expertise_areas": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Recognized areas of expertise"
+        }
+      },
+      "description": "Professional credentials and qualifications"
+    },
+    "credibility": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Overall credibility score (0.0-1.0)"
+        },
+        "methodology": {
+          "type": "string",
+          "description": "How credibility was assessed"
+        },
+        "factors": {
+          "type": "object",
+          "properties": {
+            "expertise": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 1.0,
+              "description": "Domain expertise level"
+            },
+            "track_record": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 1.0,
+              "description": "Historical accuracy"
+            },
+            "peer_recognition": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 1.0,
+              "description": "Recognition by peers"
+            }
+          }
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "description": "Credibility assessment"
+    },
+    "bias": {
+      "type": "object",
+      "properties": {
+        "political": {
+          "type": "string",
+          "enum": ["far-left", "left", "center-left", "center", "center-right", "right", "far-right", "unknown"]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "description": "Bias assessment if applicable"
+    },
+    "awards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "year": {"type": "integer"},
+          "organization": {"type": "string"},
+          "description": {"type": "string"}
+        }
+      },
+      "description": "Awards and recognition received"
+    },
+    "publications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "type": {
+            "type": "string",
+            "enum": ["book", "article", "paper", "report", "other"]
+          },
+          "publication": {"type": "string"},
+          "date": {"type": "string", "format": "date"},
+          "url": {"type": "string", "format": "uri"}
+        }
+      },
+      "description": "Notable publications"
+    },
+    "social_media": {
+      "type": "object",
+      "properties": {
+        "twitter": {"type": "string"},
+        "linkedin": {"type": "string"},
+        "website": {"type": "string", "format": "uri"},
+        "other": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "platform": {"type": "string"},
+              "handle": {"type": "string"}
+            }
+          }
+        }
+      },
+      "description": "Social media presence"
+    },
+    "conflicts_of_interest": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["financial", "personal", "organizational", "political"]
+          },
+          "description": {"type": "string"},
+          "disclosed": {"type": "boolean"},
+          "severity": {
+            "type": "string",
+            "enum": ["minor", "moderate", "major"]
+          }
+        }
+      },
+      "description": "Known conflicts of interest"
+    },
+    "controversies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {"type": "string", "format": "date"},
+          "description": {"type": "string"},
+          "resolution": {"type": "string"},
+          "credibility_impact": {
+            "type": "string",
+            "enum": ["none", "minor", "moderate", "major", "severe"]
+          }
+        }
+      },
+      "description": "Notable controversies or ethical issues"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "retired", "deceased"],
+      "description": "Current status"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "curator": {
+          "type": "string"
+        }
+      },
+      "required": ["created"]
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional context or notes"
+    }
+  },
+  "additionalProperties": false
+}
